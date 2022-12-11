@@ -1,6 +1,6 @@
 import cx from "classnames";
-import Image from "next/image";
-import { PropsWithChildren, ReactNode } from "react";
+
+import { PropsWithChildren } from "react";
 import LazyTyper from "./LazyTyper";
 
 type Who = "user" | "ai";
@@ -31,7 +31,7 @@ const Avatar = ({ who, className }: AvatarProps) => (
       className
     )}
   >
-    {who === "user" ? "AI" : "U"}
+    {who === "user" ? "U" : "AI"}
   </div>
 );
 

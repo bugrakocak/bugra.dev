@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useScrollToBottom } from "react-scroll-to-bottom";
 
 interface LazyTyperProps {
   text?: string;
