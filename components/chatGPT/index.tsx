@@ -1,5 +1,5 @@
 import cx from "classnames";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import Dialog from "./ui/Dialog";
 import Examples from "./ui/Examples";
@@ -22,7 +22,7 @@ const questions = [
   {
     question: "Who is this guy?",
     answer:
-      "His name is Buğra and he is a front-end developer currently working on crypto payment solutions for the company uTrust(soon xMoney). He has been in the industry since 2018 and has previously worked for Atölye15. In his free time, Buğra is interested in AI and blockchain technologies. Also enjoys building his own side projects. He is currently living in İzmir, Turkey.",
+      "His name is Buğra and he is a front-end developer currently working on crypto payment solutions for the company uTrust(soon xMoney). He has been in the industry since 2018 and has previously worked for Atölye15. In his free time, Buğra can often be found marveling at the wonders of AI and blockchain technologies. Also enjoys building his own side projects. He is currently living in İzmir, Turkey.",
   },
   {
     question: "How can I contact to him?",
@@ -67,13 +67,10 @@ export default function ChatGPT({
     setQuestionIndex(questionIndex + 1);
     setInputValue("");
     setIsBotTyping(true);
-    scrollToBottom();
   };
 
   const handleOnChange = (e: any) => {
     e.preventDefault();
-
-    if (isBotTyping) return;
 
     const inputValueCharCount = e.target.value.length;
 
@@ -92,6 +89,10 @@ export default function ChatGPT({
       behavior: "smooth",
     });
   };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [questionIndex]);
 
   const handleDialogCompleted = useCallback(() => {
     setIsBotTyping(false);
@@ -128,6 +129,7 @@ export default function ChatGPT({
       <div className="py-10 w-full absolute bottom-0 bg-chatGPT-bottom">
         <Form
           value={inputValue}
+          disabled={isBotTyping || questionIndex === questions.length}
           onSubmit={handleSubmit}
           onChange={handleOnChange}
           className="w-4/5 mx-auto"

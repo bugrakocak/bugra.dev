@@ -6,13 +6,15 @@ import { ChangeEvent, KeyboardEvent, useRef } from "react";
 interface FormProps {
   className?: string;
   value: string;
-  onChange?: (e: ChangeEvent<HTMLTextAreaElement>) => void;
+  disabled: boolean;
+  onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
   onSubmit: (e: any) => void;
 }
 
 export default function Form({
   className,
   value,
+  disabled,
   onChange,
   onSubmit,
 }: FormProps): JSX.Element {
@@ -37,7 +39,8 @@ export default function Form({
       <TextareaAutosize
         className="w-full max-h-[200px] bg-transparent outline-none resize-none"
         value={value}
-        placeholder="Type your message..."
+        placeholder="Ask anything..."
+        disabled={disabled}
         onChange={onChange}
         onKeyDown={handlePress}
       ></TextareaAutosize>
