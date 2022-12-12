@@ -51,7 +51,7 @@ export default function Form({
       ></TextareaAutosize>
       <button
         type="submit"
-        className="absolute p-1 rounded-md text-gray-500 bottom-1.5 right-1 md:bottom-2.5 md:right-2 hover:bg-[#202123]"
+        className="absolute p-1 rounded-md text-gray-500 bottom-2.5 right-2 hover:bg-[#202123]"
       >
         <svg
           stroke="currentColor"
