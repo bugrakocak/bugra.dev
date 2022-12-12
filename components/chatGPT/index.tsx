@@ -140,6 +140,7 @@ export default function ChatGPT({
           value={inputValue}
           disabled={isBotTyping || questionIndex === questions.length}
           inputRef={inputRef}
+          placeholder={questionIndex === questions.length ? "Thanks!" : ""}
           onSubmit={handleSubmit}
           onChange={handleOnChange}
           className="w-4/5 mx-auto"

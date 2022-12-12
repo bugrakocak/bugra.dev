@@ -7,7 +7,8 @@ interface FormProps {
   className?: string;
   value: string;
   disabled: boolean;
-  inputRef?: RefObject<HTMLTextAreaElement>;
+  inputRef: RefObject<HTMLTextAreaElement>;
+  placeholder?: string;
   onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
   onSubmit: (e: any) => void;
 }
@@ -17,6 +18,7 @@ export default function Form({
   value,
   disabled,
   inputRef,
+  placeholder,
   onChange,
   onSubmit,
 }: FormProps): JSX.Element {
@@ -41,7 +43,7 @@ export default function Form({
       <TextareaAutosize
         className="w-full max-h-[200px] bg-transparent outline-none resize-none"
         value={value}
-        placeholder="Ask anything..."
+        placeholder={placeholder || "Ask anything..."}
         disabled={disabled}
         onChange={onChange}
         onKeyDown={handlePress}
