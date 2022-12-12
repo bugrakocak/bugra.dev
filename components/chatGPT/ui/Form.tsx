@@ -1,12 +1,13 @@
 import cx from "classnames";
 import TextareaAutosize from "react-textarea-autosize";
 
-import { ChangeEvent, KeyboardEvent, useRef } from "react";
+import { ChangeEvent, KeyboardEvent, RefObject, useRef } from "react";
 
 interface FormProps {
   className?: string;
   value: string;
   disabled: boolean;
+  inputRef?: RefObject<HTMLTextAreaElement>;
   onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
   onSubmit: (e: any) => void;
 }
@@ -15,6 +16,7 @@ export default function Form({
   className,
   value,
   disabled,
+  inputRef,
   onChange,
   onSubmit,
 }: FormProps): JSX.Element {
@@ -43,6 +45,7 @@ export default function Form({
         disabled={disabled}
         onChange={onChange}
         onKeyDown={handlePress}
+        ref={inputRef}
       ></TextareaAutosize>
       <button
         type="submit"

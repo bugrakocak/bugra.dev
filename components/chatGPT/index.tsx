@@ -54,7 +54,7 @@ export default function ChatGPT({
 }: ChatGPTProps): JSX.Element {
   const [inputValue, setInputValue] = useState("");
   const [isBotTyping, setIsBotTyping] = useState(false);
-
+  const inputRef = useRef<HTMLTextAreaElement>(null);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
 
   const handleSubmit = (e: any) => {
@@ -94,7 +94,13 @@ export default function ChatGPT({
     scrollToBottom();
   }, [questionIndex]);
 
-  const handleDialogCompleted = useCallback(() => {
+  useEffect(() => {
+    if (isBotTyping) return;
+
+    inputRef.current?.focus();
+  }, [isBotTyping]);
+
+  const handleDialogComplete = useCallback(() => {
     setIsBotTyping(false);
   }, []);
 
@@ -105,7 +111,10 @@ export default function ChatGPT({
         className
       )}
     >
-      <div ref={scrollAreaRef} className="overflow-auto h-[632px]">
+      <div
+        ref={scrollAreaRef}
+        className="overflow-auto h-[calc(100vh-200px)] max-h-[632px]"
+      >
         {questionIndex === 0 ? (
           <Examples className="mt-16" examples={examples} />
         ) : (
@@ -118,7 +127,7 @@ export default function ChatGPT({
                     key={q.question}
                     question={q.question}
                     answer={q.answer}
-                    onCompleted={handleDialogCompleted}
+                    onCompleted={handleDialogComplete}
                     onLazyType={() => scrollToBottom()}
                   />
                 ))}
@@ -130,6 +139,7 @@ export default function ChatGPT({
         <Form
           value={inputValue}
           disabled={isBotTyping || questionIndex === questions.length}
+          inputRef={inputRef}
           onSubmit={handleSubmit}
           onChange={handleOnChange}
           className="w-4/5 mx-auto"
