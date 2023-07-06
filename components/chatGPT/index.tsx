@@ -150,7 +150,11 @@ export default function ChatGPT({
             value={inputValue}
             disabled={isBotTyping || questionIndex === questions.length}
             inputRef={inputRef}
-            placeholder={questionIndex === questions.length ? "Thanks!" : ""}
+            placeholder={
+              questionIndex === questions.length && !isBotTyping
+                ? "Sorry, AI has just been awakened. Hide!"
+                : ""
+            }
             onSubmit={handleSubmit}
             onChange={handleOnChange}
           />
