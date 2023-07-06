@@ -3,11 +3,13 @@ import cx from "classnames";
 interface ExamplesProps {
   className?: string;
   examples: string[];
+  onExampleClick: () => void;
 }
 
 export default function Examples({
   className,
   examples,
+  onExampleClick,
 }: ExamplesProps): JSX.Element {
   return (
     <div className={cx("text-[#D1D5DB] flex flex-col items-center", className)}>
@@ -27,13 +29,16 @@ export default function Examples({
         />
       </svg>
       <h1 className="text-lg font-semibold">Examples</h1>
-      {examples.map((example) => (
-        <div
+      {examples.map((example, index) => (
+        <button
+          className="bg-[#3E3F4B] rounded-md py-3 px-4 text-sm font-semibold w-[300px] mx-auto mt-4 flex items-center justify-between text-left disabled:opacity-50"
+          type="button"
           key={example}
-          className="bg-[#3E3F4B] rounded-md py-3 px-4 text-sm font-semibold w-[300px] mx-auto mt-4 flex items-center justify-between text-left"
+          disabled={index !== 0}
+          onClick={onExampleClick}
         >
           &quot;{example}&quot;
-        </div>
+        </button>
       ))}
     </div>
   );

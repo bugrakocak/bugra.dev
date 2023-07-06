@@ -22,7 +22,7 @@ const questions = [
   {
     question: "Who is this guy?",
     answer:
-      "His name is Buğra and he is a front-end developer currently working on crypto payment solutions for the company uTrust(soon xMoney). He has been in the industry since 2018 and has previously worked for Atölye15. In his free time, Buğra can often be found marveling at the wonders of AI and blockchain technologies. Also enjoys building his own side projects. He is currently living in İzmir, Turkey.",
+      "His name is Buğra and he is a front-end developer currently working on crypto payment solutions for the xMoney. He has been in the industry since 2018 and has previously worked for Atölye15. In his free time, Buğra can often be found marveling at the wonders of AI and blockchain technologies. Also enjoys building his own side projects. He is currently living in İzmir, Turkey.",
   },
   {
     question: "How can I contact to him?",
@@ -104,6 +104,11 @@ export default function ChatGPT({
     setIsBotTyping(false);
   }, []);
 
+  const handleExampleClick = () => {
+    setInputValue("");
+    setQuestionIndex(1);
+  };
+
   return (
     <div
       className={cx(
@@ -116,7 +121,11 @@ export default function ChatGPT({
         className="overflow-auto h-[calc(100vh-200px)] max-h-[632px]"
       >
         {questionIndex === 0 ? (
-          <Examples className="mt-16" examples={examples} />
+          <Examples
+            onExampleClick={handleExampleClick}
+            className="mt-16"
+            examples={examples}
+          />
         ) : (
           <>
             {questionIndex !== 0 &&
@@ -136,15 +145,19 @@ export default function ChatGPT({
         )}
       </div>
       <div className="py-10 w-full absolute bottom-0 bg-chatGPT-bottom">
-        <Form
-          value={inputValue}
-          disabled={isBotTyping || questionIndex === questions.length}
-          inputRef={inputRef}
-          placeholder={questionIndex === questions.length ? "Thanks!" : ""}
-          onSubmit={handleSubmit}
-          onChange={handleOnChange}
-          className="w-4/5 mx-auto"
-        />
+        <div className="w-4/5 mx-auto">
+          <Form
+            value={inputValue}
+            disabled={isBotTyping || questionIndex === questions.length}
+            inputRef={inputRef}
+            placeholder={questionIndex === questions.length ? "Thanks!" : ""}
+            onSubmit={handleSubmit}
+            onChange={handleOnChange}
+          />
+          <span className="text-gray-400 text-xs ml-1">
+            (Just type, you will be guided)
+          </span>
+        </div>
       </div>
     </div>
   );
