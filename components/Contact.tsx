@@ -11,11 +11,6 @@ const items = [
     link: "https://github.com/bugrakocak",
   },
   {
-    name: "LinkedIn",
-    icon: "/linkedin.svg",
-    link: "https://www.linkedin.com/in/bugra-kocak",
-  },
-  {
     name: "Twitter",
     icon: "/twitter.svg",
     link: "https://twitter.com/wrstsrnm",

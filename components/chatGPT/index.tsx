@@ -27,7 +27,7 @@ const questions = [
   {
     question: "How can I contact to him?",
     answer:
-      "You can contact or follow Buğra on Twitter, LinkedIn, or GitHub. Links are above.",
+      "You can contact or follow Buğra on Twitter and GitHub. Links are above.",
   },
   {
     question: "What is this website all about?",
