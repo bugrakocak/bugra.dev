@@ -22,7 +22,7 @@ const questions = [
   {
     question: "Who is this guy?",
     answer:
-      "His name is Buğra and he is a front-end developer currently working on crypto payment solutions for the xMoney. He has been in the industry since 2018 and has previously worked for Atölye15. In his free time, Buğra can often be found marveling at the wonders of AI and blockchain technologies. Also enjoys building his own side projects. He is currently living in İzmir, Turkey.",
+      "His name is Buğra, and he works as a front-end developer, currently focusing on developing crypto payment solutions for xMoney. In his free time, Buğra can often be found marveling at the wonders of AI and blockchain technologies. Also enjoys building his own side projects. He is currently living in İzmir, Turkey.",
   },
   {
     question: "How can I contact to him?",
