@@ -3,7 +3,7 @@ import cx from "classnames";
 import { PropsWithChildren } from "react";
 import LazyTyper from "./LazyTyper";
 
-type Who = "user" | "ai";
+type Persona = "user" | "ai";
 
 interface DialogProps {
   className?: string;
@@ -15,42 +15,44 @@ interface DialogProps {
 
 interface DialogItemProps {
   className?: string;
-  who: Who;
+  persona: Persona;
 }
 
 interface AvatarProps {
   className?: string;
-  who: Who;
+  persona: Persona;
 }
 
-const Avatar = ({ who, className }: AvatarProps) => (
+const Avatar = ({ persona, className }: AvatarProps) => (
   <div
     className={cx(
       "w-[30px] h-[30px] rounded-sm bg-[#10a37f] flex items-center justify-center text-white",
-      who === "ai" ? "bg-[#10a37f]" : "bg-[#004d3f]",
+      persona === "ai" ? "bg-[#10a37f]" : "bg-[#004d3f]",
       className
     )}
   >
-    {who === "user" ? "U" : "AI"}
+    {persona === "user" ? "U" : "AI"}
   </div>
 );
 
 function DialogItem({
   className,
-  who,
+  persona,
   children,
 }: PropsWithChildren<DialogItemProps>): JSX.Element {
   return (
     <div
       className={cx(
         "py-6",
-        who === "user" ? "bg-[#343541]" : "bg-[#444654]",
+        persona === "user" ? "bg-[#343541]" : "bg-[#444654]",
         className
       )}
     >
       <div className="w-4/5 mx-auto max-w-2xl flex gap-6">
-        <Avatar className="self-start flex-shrink-0" who={who} />
-        <div className={who === "user" ? "text-[#ececf1]" : "text-[#d1d5db]"}>
+        <Avatar className="self-start flex-shrink-0" persona={persona} />
+        <div
+          className={persona === "user" ? "text-[#ececf1]" : "text-[#d1d5db]"}
+        >
           {children}
         </div>
       </div>
@@ -66,8 +68,8 @@ export default function Dialog({
 }: DialogProps): JSX.Element {
   return (
     <>
-      <DialogItem who="user">{question}</DialogItem>
-      <DialogItem who="ai">
+      <DialogItem persona="user">{question}</DialogItem>
+      <DialogItem persona="ai">
         <LazyTyper
           text={answer}
           onCompleted={onCompleted}
