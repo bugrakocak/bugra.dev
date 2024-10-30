@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 
-interface LazyTyperProps {
+interface FakeStreamingProps {
   text?: string;
   onCompleted: () => void;
-  onLazyType: () => void;
+  onType: () => void;
 }
 
-export default function LazyTyper({
+export default function FakeStreaming({
   text,
-  onLazyType,
+  onType,
   onCompleted,
-}: LazyTyperProps): JSX.Element {
+}: FakeStreamingProps): JSX.Element {
   const [words, setWords] = useState<string[]>(text?.split(" ") ?? []);
   const [typedWords, setTypedWords] = useState<string[]>([]);
 
@@ -19,7 +19,7 @@ export default function LazyTyper({
       return onCompleted?.();
     }
 
-    const waitTime = typedWords.length === 0 ? 2000 : 75;
+    const waitTime = typedWords.length === 0 ? 1200 : 40;
 
     const timeout = setTimeout(() => {
       setTypedWords((prev) => {
@@ -29,7 +29,7 @@ export default function LazyTyper({
         return newTypedWords;
       });
       setWords((prev) => prev.slice(1));
-      onLazyType();
+      onType();
     }, waitTime);
 
     return () => clearTimeout(timeout);

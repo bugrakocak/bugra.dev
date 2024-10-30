@@ -9,7 +9,6 @@ interface FormProps {
   disabled: boolean;
   inputRef: RefObject<HTMLTextAreaElement>;
   placeholder?: string;
-  onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
   onSubmit: (e: any) => void;
 }
 
@@ -19,7 +18,6 @@ export default function Form({
   disabled,
   inputRef,
   placeholder,
-  onChange,
   onSubmit,
 }: FormProps): JSX.Element {
   const myFormRef = useRef<HTMLFormElement>(null);
@@ -37,6 +35,7 @@ export default function Form({
       onSubmit={onSubmit}
       className={cx(
         "relative flex items-center justify-between pt-3 pr-7 pb-3 pl-4 rounded-md bg-[#40414f] border border-[#20212380] text-white",
+        disabled && "opacity-50 pointer-events-none",
         className
       )}
     >
@@ -45,7 +44,6 @@ export default function Form({
         value={value}
         placeholder={placeholder || "Ask anything..."}
         disabled={disabled}
-        onChange={onChange}
         onKeyDown={handlePress}
         ref={inputRef}
       ></TextareaAutosize>

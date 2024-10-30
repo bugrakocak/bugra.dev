@@ -1,7 +1,7 @@
 import cx from "classnames";
 
 import { PropsWithChildren } from "react";
-import LazyTyper from "./LazyTyper";
+import LazyTyper from "./FakeStreaming";
 
 type Persona = "user" | "ai";
 
@@ -10,7 +10,7 @@ interface DialogProps {
   question: string;
   answer: string;
   onCompleted: () => void;
-  onLazyType: () => void;
+  onType: () => void;
 }
 
 interface DialogItemProps {
@@ -64,17 +64,13 @@ export default function Dialog({
   question,
   answer,
   onCompleted,
-  onLazyType,
+  onType,
 }: DialogProps): JSX.Element {
   return (
     <>
       <DialogItem persona="user">{question}</DialogItem>
       <DialogItem persona="ai">
-        <LazyTyper
-          text={answer}
-          onCompleted={onCompleted}
-          onLazyType={onLazyType}
-        />
+        <LazyTyper text={answer} onCompleted={onCompleted} onType={onType} />
       </DialogItem>
     </>
   );

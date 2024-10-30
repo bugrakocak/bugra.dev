@@ -2,7 +2,7 @@ import Head from "next/head";
 import cx from "classnames";
 import { useState } from "react";
 
-import ChatGpt from "../components/chatGPT";
+import FakeGPT from "../components/fakeGPT";
 import Contact from "../components/Contact";
 
 export default function Home() {
@@ -18,12 +18,12 @@ export default function Home() {
         <div
           className={cx(
             "h-[20px] mb-8 transition-opacity duration-[2000ms] delay-[2000ms] ease-in-out",
-            questionIndex >= 2 ? "opacity-100" : "opacity-0"
+            questionIndex >= 1 ? "opacity-100" : "opacity-0"
           )}
         >
           <Contact />
         </div>
-        <ChatGpt
+        <FakeGPT
           questionIndex={questionIndex}
           setQuestionIndex={(i) => setQuestionIndex(i)}
         />

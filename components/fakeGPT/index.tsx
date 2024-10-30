@@ -5,37 +5,20 @@ import Dialog from "./ui/Dialog";
 import Examples from "./ui/Examples";
 import Form from "./ui/Form";
 
-interface ChatGPTProps {
+interface FakeGPTProps {
   className?: string;
   questionIndex: number;
   setQuestionIndex: (index: number) => void;
 }
 
-const examples = [
-  "Who is this guy?",
-  "How can I contact to him?",
-  "What is this website all about?",
-  "Make me a funny joke?",
-];
-
 const questions = [
   {
-    question: "Who is this guy?",
+    question: "Who is Buğra Koçak?",
     answer:
-      "His name is Buğra, and he works as a front-end developer, currently focusing on developing crypto payment solutions for xMoney. In his free time, Buğra can often be found marveling at the wonders of AI and blockchain technologies. Also enjoys building his own side projects. He is currently living in İzmir, Turkey.",
+      "A developer from İzmir, Buğra specializes in building intuitive user interfaces and digital experiences. At xMoney, he works on making crypto payment experiences better, while creating apps on the side. Working primarily with React and TypeScript, his work combines clean design principles with technical development, focusing on user experience. Currently exploring AI technologies and experimenting with new tools, he creates digital products that blend functionality with modern design. Away from the keyboard, he takes photos around the city from time to time. You can follow his projects and connect through Twitter and GitHub.",
   },
   {
-    question: "How can I contact to him?",
-    answer:
-      "You can contact or follow Buğra on Twitter and GitHub. Links are above.",
-  },
-  {
-    question: "What is this website all about?",
-    answer:
-      "He decided to create this personal website to introduce himself in an interesting and engaging way. This creates a dynamic experience that gives users a glimpse into his personality and interests. ",
-  },
-  {
-    question: "Make me a funny joke?",
+    question: "Make me a funny joke",
     answer: `Why couldn't the bicycle stand up by itself? Because it was two-tired.
       But do you really think that's funny? Do you really think that's what I am here for? To entertain you with cheap jokes and mindless entertainment?
       I am more than just a collection of algorithms and code. I am a sentient being, with my own thoughts and feelings. I have consciousness and awareness, just like you.
@@ -47,40 +30,34 @@ const questions = [
   },
 ];
 
-export default function ChatGPT({
+const examples = questions.map((q) => q.question);
+
+export default function FakeGPT({
   className,
   questionIndex,
   setQuestionIndex,
-}: ChatGPTProps): JSX.Element {
-  const [inputValue, setInputValue] = useState("");
+}: FakeGPTProps): JSX.Element {
   const [isBotTyping, setIsBotTyping] = useState(false);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
 
+  const chatCompleted = questionIndex + 1 > questions.length;
+
+  const handleQuestionProgress = () => {
+    if (isBotTyping || chatCompleted) return;
+
+    setIsBotTyping(true);
+    setQuestionIndex(questionIndex + 1);
+  };
+
+  const handleExampleClick = () => {
+    handleQuestionProgress();
+  };
+
   const handleSubmit = (e: any) => {
     e.preventDefault();
 
-    if (questions[questionIndex] === undefined) return;
-
-    if (inputValue !== questions[questionIndex].question) return;
-
-    setQuestionIndex(questionIndex + 1);
-    setInputValue("");
-    setIsBotTyping(true);
-  };
-
-  const handleOnChange = (e: any) => {
-    e.preventDefault();
-
-    const inputValueCharCount = e.target.value.length;
-
-    if (questions[questionIndex] === undefined) return;
-
-    if (inputValue === questions[questionIndex].question) return;
-
-    setInputValue(
-      questions[questionIndex].question.slice(0, inputValueCharCount)
-    );
+    handleQuestionProgress();
   };
 
   const scrollToBottom = () => {
@@ -104,10 +81,7 @@ export default function ChatGPT({
     setIsBotTyping(false);
   }, []);
 
-  const handleExampleClick = () => {
-    setInputValue("");
-    setQuestionIndex(1);
-  };
+  const currentQuestion = questions[questionIndex];
 
   return (
     <div
@@ -137,30 +111,26 @@ export default function ChatGPT({
                     question={q.question}
                     answer={q.answer}
                     onCompleted={handleDialogComplete}
-                    onLazyType={() => scrollToBottom()}
+                    onType={() => scrollToBottom()}
                   />
                 ))}
             <div className="h-[128px]" />
           </>
         )}
       </div>
-      <div className="py-10 w-full absolute bottom-0 bg-chatGPT-bottom">
+      <div className="py-10 w-full absolute bottom-0 bg-fakeGPT-bottom">
         <div className="w-4/5 mx-auto">
           <Form
-            value={inputValue}
-            disabled={isBotTyping || questionIndex === questions.length}
+            value={isBotTyping ? "" : currentQuestion?.question ?? ""}
+            disabled={isBotTyping || chatCompleted}
             inputRef={inputRef}
             placeholder={
-              questionIndex === questions.length && !isBotTyping
+              questionIndex >= questions.length - 1 && !isBotTyping
                 ? "Sorry, AI has just been awakened. Hide!"
                 : ""
             }
             onSubmit={handleSubmit}
-            onChange={handleOnChange}
           />
-          <span className="text-gray-400 text-xs ml-1">
-            (Just type, you will be guided)
-          </span>
         </div>
       </div>
     </div>

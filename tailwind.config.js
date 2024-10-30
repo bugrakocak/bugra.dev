@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        "chatGPT-bottom":
+        "fakeGPT-bottom":
           "linear-gradient(180deg,rgba(53,55,64,0),#353740 58.85%);",
       },
     },
